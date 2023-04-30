@@ -6,4 +6,11 @@ text-align: center;
 body p
 {
 font-size:15px;
+
+}
+
+.main-div
+{
+    height:100vh;
+    overflow-y:scroll;
 }
