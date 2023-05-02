@@ -11,10 +11,12 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/my_style.css">
+	<link href="css/prism.css" rel="stylesheet" />
+	
 </head>
 
-<body>
-	
+<body data-prismjs-copy-timeout="500">
+	<script src="js/prism.js"></script>
 	<div class="wrapper d-flex align-items-stretch">
 		<nav id="sidebar" class="active scroll=test">
 			<div class="custom-menu">
@@ -31,11 +33,11 @@
 						aria-selected="true">Introduction</a>
 					</li>
 					<li class="nav-item">
-						<a data-toggle="tab" id="dataTab" href="#DataCollection" data-toggle="tab" role="tab" aria-selected="false">Data Collection</a>
+						<a data-toggle="tab" id="dataTab" href="#DataCollection" role="tab" aria-selected="false">Data Collection</a>
 					</li>
 					<li>
-						<a data-toggle="tab" href="#">
-							Training a Yolov5 model
+						<a data-toggle="tab" id="trainTab" href="#Train" role ="tab" aria-selected="false">
+							Training a YOLOv5 model
 						</a>
 					</li>
 					<li>
@@ -61,7 +63,7 @@
 				<h1 class="mb-4 col-12 main-heading display-5">Semi Autonomous Driving using Traffic Signs and Collision
 					Avoidance</h1>
 				<img src="images/bot_image.jpg" class="img-fluid offset-4 col-sm-8 offset-sm-2 mb-4"
-					alt="Responsive image">
+					alt="Responsive image" style="margin-left:auto;margin-right:auto;display:block">
 				<h5 class="col-12"><strong>Objective</strong></h5>
 				<p class="col-12"> The objective of this project is to develop a semi-autonomous vehicle which can
 					detect different road signals and avoid dynamic obstacles (collision avoidance).
@@ -104,10 +106,10 @@
 						"irobot_create_msgs/action/RotateAngle" to rotate the bot for a given angle </li>
 				</ul>
 			</div>
-			<div class="row tab-pane fade" id="DataCollection" role="tabpanel"  aria-labelledby="DataCollection-tab">
+			<div class="row tab-pane fade" id="DataCollection" role="tabpanel" aria-labelledby="DataCollection-tab">
 				<h1 class="mb-4 col-12 main-heading display-5">Data Collection</h1>
 				<h5 class="col-12"><strong>YOLOv5</strong></h5>
-				<p class="col-12">YOLO is a popular object detection and classification algorithm. It is very fast and
+				<p class="col-12">YOLO (You Only Look Once) is a popular object detection and classification algorithm. It is very fast and
 					efficient in detecting and classifying objects. YOLO is developed using pytorch and hence it is
 					easier to implement the algorithm in pytorch rather than tensorflow and keras
 					. Yolov5 (yolo version 5) is used in this project . There are also different versions of yolov5 as
@@ -118,17 +120,37 @@
 				<h5 class="col-12"><strong>Creating a Dataset</strong></h5>
 				<p class="col-12">The images are captured from the turtlebot4 oak-d camera. A subscriber node is used to subscribe to the "/color/preview/image" topic, convert the data from ros image format to opencv format and use the cv2.imwrite() function to save the image. <a href="">Here</a> is the link for the image subscribe and save node. </p>
 				<p class="col-12">The dataset consists of 1800 images for training and 200 images for validation, equally distributed among the 10 classes of traffic signs, shown in the image below.</p>
-				<img src="images/classes.png" class="img-fluid offset-4 col-sm-6 offset-sm-2 mb-4"
-					alt="Responsive image"><br><br>	
+				<img src="images/classes.png" class="img-fluid offset-4 col-sm-6 offset-sm-2 mb-4" alt="Responsive image" style="margin-left:auto;margin-right:auto;display:block"><br><br>	
+				<p class="col-12">The shape of the images are 300 by 150 pixels. The height and width of the images are chosen in a such a way that the oak-d camera can process it without any delay while maximizing the ouput width for a wider field of view</p>
+				<p class="col-12">The images must be labelled manually for the yolo algorithm. The makesense website is a handy tool to draw bounding boxes for images and label them.
+					Inside the makesense site, click "GetStarted" and upload your images. </p>
+				<p class="col-12">The image below shows the process of creating labels for the images.</p>
+				<img src="images/create_labels.png" class="img-fluid offset-4 col-sm-12 offset-sm-2 mb-4" alt="Responsive image" style="margin-left:auto;margin-right:auto;display:block"><br><br>
+				<p class="col-12">Bounding boxes are drawn for the images and the correct labels are selected.</p>
+				<img src="images/left_turn_makesense.png" class="img-fluid offset-4 col-sm-12 offset-sm-2 mb-4" alt="Responsive image" style="margin-left:auto;margin-right:auto;display:block"><br><br>	
+				<p class="col-12">Click on "actions"followed by "export annotations" and export the labelled images as "A zip package containing files in YOLO format".</p>
+				<img src="images/export_annotations.png" class="img-fluid offset-4 col-sm-12 offset-sm-2 mb-4" alt="Responsive image" style="margin-left:auto;margin-right:auto;display:block"><br><br>
+				<p class="col-12">Add the labels to the dataset folder under labels. The dataset folder must be of a certain format for YOLOv5 to use the dataset.The format is as follows</p>
+				<img src="images/dataset_struct.png" class="img-fluid offset-4 col-sm-4 offset-sm-2 mb-4" alt="Responsive image" style="margin-left:auto;margin-right:auto;display:block"><br><br>		
+				<p class="col-12">A label is a text file that contains the class of the image (0,1,2,....) followed by the pixel values of the bounding box enclosing the feature on the image. Note that the name of the images and the labels are the same, yolo uses this format to match the images with labels.</p>	
+				<img src="images/label_eg.png" class="img-fluid offset-4 col-sm-12 offset-sm-2 mb-4" alt="Responsive image" style="margin-left:auto;margin-right:auto;display:block"><br><br>	
 			</div>
+			<div class="row tab-pane fade" id="Train" role="tabpanel" aria-labelledby="Train-tab">
+				<h1 class="mb-4 col-12 main-heading display-5">Training a YOLOv5 model</h1>
+				<p class="col-12">Download the required files for training yolov5 from the github repository. <a href="https://github.com/hankramnithish/yolov5">Link</a></p>	
+				<p class="col-12">To train the model the dataset must be pointed to yolov5. A yaml file is created under yolov5/data and with the code as follows (the yaml files under the data folder can also be edited to create a new one)</p>
+				
+			</div>
+
 		</div>
 	</div>
 
-
+	
 	<script src="js/jquery.min.js"></script>
 	<script src="js/popper.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/main.js"></script>
+	
 </body>
 
 </html>
