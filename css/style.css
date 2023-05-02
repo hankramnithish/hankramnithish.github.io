@@ -8337,3 +8337,7 @@ a[data-toggle="collapse"] {
 
 .subscribe-form .form-control {
   background: #5356b1; }
+
+  .tab-open{
+    transition: all 0.5;
+  }
