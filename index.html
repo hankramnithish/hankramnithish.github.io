@@ -5,6 +5,7 @@
 	<title>Semi Autonomous Driving using Traffic Signs and Collision Avoidance</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="icon" type="image/x-icon" href="/images/favicon.ico">
 
 	<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
 
@@ -27,7 +28,7 @@
 			</div>
 			<div class="p-4">
 				<h1 class="pt-5"><a href="index.html" class="logo">TurtleBot4 Lite</a></h1>
-				<ul class="list-unstyled components mb-5 nav nav-tabs" id="myTab" role="tablist">
+				<ul class="list-unstyled components mb-5 nav nav-tabs navigation" id="myTab" role="tablist">
 					<li class="nav-item">
 						<a class="active" data-toggle="tab" id="introTab" href="#intro" data-toggle="tab" role="tab"
 						aria-selected="true">Introduction</a>
@@ -41,7 +42,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="#">
+						<a data-toggle="tab" id="ModelTab" href="#Model" role ="tab" aria-selected="false">
 							Model deployment
 						</a>
 					</li>
@@ -49,7 +50,7 @@
 						<a href="#">Collision Avoidance using LIDAR</a>
 					</li>
 					<li>
-						<a href="#">Integrating with Robot motion</a>
+						<a data-toggle="tab" id="IntegrationTab" href="#Integrate" role ="tab" aria-selected="false">Integrating with Robot motion</a>
 					</li>
 					<li>
 						<a href="#">Conclusion and Results</a>
@@ -90,7 +91,7 @@
 				</ul><br><br>
 				<h5 class="col-12"><strong>Workflow</strong></h5>
 				<p class="col-12">The workflow of our project is shown in the flowchart below.</p>
-				<img src="images/Turtlebot4_2.png" class="img-fluid offset-4 col-sm-8 offset-sm-2 mb-4"
+				<img src="images/Turtlebot4-3.png" class="img-fluid offset-4 col-sm-8 offset-sm-2 mb-4"
 					alt="Responsive image"><br><br>
 				<ul class="col-12">
 					<li>Subscribe to the camera topic "/color/preview/image" and send it to the yolov5 model to draw the
@@ -103,7 +104,7 @@
 						robot.</li>
 					<li>A controller node subscribes to the topics "/pred" and "/laser_avoid and uses the velocity topic
 						"/cmd_vel" to send linear velocity commands and the action lib
-						"irobot_create_msgs/action/RotateAngle" to rotate the bot for a given angle </li>
+						"rotate_angle" to rotate the bot for a given angle </li>
 				</ul>
 			</div>
 			<div class="row tab-pane fade" id="DataCollection" role="tabpanel" aria-labelledby="DataCollection-tab">
@@ -133,15 +134,221 @@
 				<p class="col-12">Add the labels to the dataset folder under labels. The dataset folder must be of a certain format for YOLOv5 to use the dataset.The format is as follows</p>
 				<img src="images/dataset_struct.png" class="img-fluid offset-4 col-sm-4 offset-sm-2 mb-4" alt="Responsive image" style="margin-left:auto;margin-right:auto;display:block"><br><br>		
 				<p class="col-12">A label is a text file that contains the class of the image (0,1,2,....) followed by the pixel values of the bounding box enclosing the feature on the image. Note that the name of the images and the labels are the same, yolo uses this format to match the images with labels.</p>	
-				<img src="images/label_eg.png" class="img-fluid offset-4 col-sm-12 offset-sm-2 mb-4" alt="Responsive image" style="margin-left:auto;margin-right:auto;display:block"><br><br>	
+				<img src="images/label_eg.png" class="img-fluid offset-4 col-sm-12 offset-sm-2 mb-4" alt="Responsive image" style="margin-left:auto;margin-right:auto;display:block"><br><br>
+				<a class="btn btn-primary" style="margin-left:auto;margin-right:auto;display:block;width:15%" href="https://drive.google.com/drive/folders/1Piht3aQ1qmxeEg0g5oFOVuttRezPLc2D?usp=share_link" target="_blank">Link to Dataset</a>	
 			</div>
 			<div class="row tab-pane fade" id="Train" role="tabpanel" aria-labelledby="Train-tab">
 				<h1 class="mb-4 col-12 main-heading display-5">Training a YOLOv5 model</h1>
-				<p class="col-12">Download the required files for training yolov5 from the github repository. <a href="https://github.com/hankramnithish/yolov5">Link</a></p>	
+				<p class="col-12">Download the required files for training yolov5 from the github repository. <a href="https://github.com/hankramnithish/yolov5" target="_blank">Link</a></p>	
 				<p class="col-12">To train the model the dataset must be pointed to yolov5. A yaml file is created under yolov5/data and with the code as follows (the yaml files under the data folder can also be edited to create a new one)</p>
-				
+
+			</div>
+			<div class="row tab-pane fade" id="Model" role="tabpanel" aria-labelledby="Model-tab">
+				<h1 class="mb-4 col-12 main-heading display-5">Model Deployment</h1>
+				<p class="col-12"></p>	
 			</div>
 
+
+
+
+
+
+			<div class="row tab-pane fade" id="Integrate" role="tabpanel" aria-labelledby="Integrate-tab">
+				<h1 class="mb-4 col-12 main-heading display-5">Integrating with Robot Motion</h1>
+				<p class="col-12"> The YOLOv5 model is deployed succesfully with the turtlebot and LIDAR data is filtered to detect obstacles infront of the bot. Next step is to create a program to receive 
+					the topic "/pred" from the YOLOv5 node and "/laser_avoid" topic from the LIDAR node to control the motion of the Robot.	     
+				</p>
+			<mark>Also add what we plan to do when signs are ketp, like if speed then do this </mark>
+				<h5 class="col-12"><strong>Program</strong></h5>
+				<p class="col">1. We start the python program by importing the necessary libraries and messages </p>
+				<pre data-src="plugins/toolbar/prism-toolbar.js" data-prismjs-copy="Copy"><code class="language-python">#import required python libraries
+
+import rclpy
+import math
+from rclpy.node import Node
+from rclpy.action import ActionClient
+
+# import required messages
+from std_msgs.msg import Int32MultiArray
+from std_msgs.msg import Bool
+from geometry_msgs.msg import Twist
+
+# import RotateAngle from irobot_create_msgs.action
+from irobot_create_msgs.action import RotateAngle</code></pre><br>
+				
+				<p class="col">2. Initalize the class variables, ros2 messages,timer functions, publishers, subscribers, action clients and flag variables</p>
+				<pre data-src="plugins/toolbar/prism-toolbar.js" data-prismjs-copy="Copy"><code class="language-python">class RobotController(Node):
+	def __init__(self):
+		super().__init__("ControllerNode")
+		# create subscriber object for /image_prediction and /laser_obstacle_status topics
+		self.image_prediction_subscriber = self.create_subscription(Int32MultiArray,'/image_prediction',self.process_callback,10)
+		self.laser_subscriber = self.create_subscription(Bool,'/laser_avoid',self.collision_callback,10)
+		
+		# create publisher object for /cmd_vel topic
+		self.velocity_publisher = self.create_publisher(Twist,"/cmd_vel",10)
+		self.velocity_msg = Twist()                                          # create an object for Twist() message
+
+		# create an ActionClient object for rotate_angle
+		self._action_client = ActionClient(self, RotateAngle, 'rotate_angle')
+
+		# create a timer object to call the control_robot function
+		self.timer = self.create_timer(0.2, self.control_robot)
+
+		# initialize the flag variables
+		self.obstacle_status = False
+		self.robot_control_flag = False
+		self.robot_rotate_flag = True
+
+		self.velocity_msg.linear.x = 0.2     # initialize velocity in m/s
+		self.min_width = 45                  # predefined width in pixel. Will be used for comparison with the bounding box width
+
+				</code></pre><br>
+				<p class="col-12">The <mark>"self.robot_control"</mark> flag is used to make sure that the robot velocity is published only if the predictions from "/pred" topic is received</p><br>		
+				
+			<p class="col">3. Create the callback functions <mark>inside the class</mark> for the subscribers</p>
+			<pre data-src="plugins/toolbar/prism-toolbar.js" data-prismjs-copy="Copy"><code class="language-python">	def process_callback(self,img_prediction):
+		# extract data from image_prediction message and find the width
+		self.output_class = img_prediction.data[0]  # Output class number
+		self.x_min = img_prediction.data[1]         # x_min of the predicted bounding box
+		self.x_max = img_prediction.data[2]         # x_max of the predicted bounding box
+		self.width = self.x_max-self.x_min          # width of the predicted bounding box
+		self.robot_control_flag = True              # robot_control_flag is used so that condition is checked only if new message is received. If robot_control_flag is not used, then even if new message is not received, the previous class number will be used and robot keeps moving 
+
+	def collision_callback(self,obstacle_data):
+		# update obstacle_status. If there is an obstacle then obstacle_status becomes True
+		self.obstacle_status = obstacle_data.data
+
+			</code></pre>
+			<p class="col-12">The "self.robot_control_flag" is set to true every time a message is received from the "/pred" topic.</p><br>
+			
+			<p class="col-12">4. Create functions for Rotating the turtlebot using the <mark>"rotate_angle"</mark> action lib.</p>
+			
+		<pre data-src="plugins/toolbar/prism-toolbar.js" data-prismjs-copy="Copy"><code class="language-python">	def send_goal(self, angle, max_rotation_speed):
+		# function to rotate the robot. The rotate functionality is provided by irobot_create3
+		goal_msg = RotateAngle.Goal()
+		goal_msg.angle = angle 
+		goal_msg.max_rotation_speed = max_rotation_speed
+		self._action_client.wait_for_server()
+		self._send_goal_future = self._action_client.send_goal_async(goal_msg)
+		self._send_goal_future.add_done_callback(self.goal_response_callback)
+
+	def goal_response_callback(self, future):
+		goal_handle = future.result()
+		if not goal_handle.accepted:
+			self.get_logger().info('Goal rejected :(')
+		self.get_logger().info('Goal accepted :)')
+		self._get_result_future = goal_handle.get_result_async()
+		self._get_result_future.add_done_callback(self.get_result_callback)
+
+	def get_result_callback(self, future):
+		result = future.result().result
+		self.get_logger().info('Result: {0}'.format(result))
+
+
+		</code></pre><br>
+		<p class="col-12">We use the message "irobot_create_msgs/action/RotateAngle" and action client from the "__init__" function to assign the angle value,rotation speed and send the message.</p><br>
+		
+		<p class="col-12">4. Finally create a function to control the Robot motion using the predictons and lidar data</p>
+		<pre data-src="plugins/toolbar/prism-toolbar.js" data-prismjs-copy="Copy"><code class="language-python">	def control_robot(self):
+			# Robot controller
+			if self.obstacle_status:
+				# if the obstacle_status is True, set the linear x velocity to zero
+				self.velocity_msg.linear.x = 0.0
+				self.velocity_publisher.publish(self.velocity_msg)
+			else:
+				# if the obstacle_status is False, then class number is checked and velocity command will be sent accordingly	
+				if self.robot_control_flag:
+					if self.output_class == 9:                            # straight
+						self.robot_rotate_flag = True                     # set the robot_rotate_flag to True in all the if and elif conditions, only then the next rotate will work
+						self.velocity_msg.linear.x = 0.2
+						if self.width > self.min_width:                   # if width of predicted bounding box is greater than predefined min_width, stop the robot
+							self.velocity_msg.linear.x = 0.0
+	
+					elif self.output_class == 8:                          # stop
+						self.robot_rotate_flag = True
+						self.velocity_msg.linear.x = 0.2
+						if self.width > self.min_width-5:
+							self.velocity_msg.linear.x = 0.0
+	
+					elif self.output_class == 7:                          # speed_30
+						self.robot_rotate_flag = True
+						self.velocity_msg.linear.x = 0.35
+						if self.width > self.min_width:
+							self.velocity_msg.linear.x = 0.0
+	
+					elif self.output_class == 6:                          # speed_20
+						self.robot_rotate_flag = True
+						self.velocity_msg.linear.x = 0.2
+						if self.width > self.min_width:
+							self.velocity_msg.linear.x = 0.0
+	
+					elif self.output_class == 5:                          # speed_10
+						self.robot_rotate_flag = True
+						self.velocity_msg.linear.x = 0.1
+						if self.width > self.min_width:
+							self.velocity_msg.linear.x = 0.0
+	
+					elif self.output_class == 4:                          # rightUTurn     
+						if self.width&ltself.min_width:
+							self.robot_rotate_flag = True
+							self.velocity_msg.linear.x = 0.2
+						elif(self.robot_rotate_flag == True):
+							self.robot_rotate_flag = False                # set the robot_rotate_flag to False, so that send_goal is called just once
+							self.send_goal(math.radians(-180.0),0.5)
+	
+					elif self.output_class == 3:                          # rightTurn
+						if self.width&ltself.min_width:
+							self.robot_rotate_flag = True
+							self.velocity_msg.linear.x = 0.2
+						elif(self.robot_rotate_flag == True):
+							self.robot_rotate_flag = False
+							self.send_goal(math.radians(-90.0),0.5)
+	
+					elif self.output_class == 2:                          # leftUTurn
+						if self.width&ltself.min_width:
+							self.robot_rotate_flag = True
+							self.velocity_msg.linear.x = 0.2
+						elif(self.robot_rotate_flag == True):
+							self.robot_rotate_flag = False
+							self.send_goal(math.radians(180.0),0.5)
+	
+					elif self.output_class == 1:                          # leftTurn
+						if self.width&ltself.min_width:
+							self.robot_rotate_flag = True
+							self.velocity_msg.linear.x = 0.2
+						elif(self.robot_rotate_flag == True):
+							self.robot_rotate_flag = False
+							self.send_goal(math.radians(90.0),0.5)
+	
+					elif self.output_class == 0:                          # bump
+						self.robot_rotate_flag = True
+						self.velocity_msg.linear.x = 0.05
+						if self.width > self.min_width+30:
+							# +30 is added on right side on relational operator to stop the robot little far from the stop sign. This is to avoid the false detection from the YOLO model when the camera is too close stop sign
+							self.velocity_msg.linear.x = 0.0
+					
+					self.velocity_publisher.publish(self.velocity_msg)    # publish velocity message
+	
+			self.robot_control_flag = False       
+
+		</code></pre><br>
+		<p class="cols-12">The "self.robot_control_flag" is set to False at the end of the function to wait for the flag to become True in the callback function.</p><br>
+		<p class="cols-12">5. Create a main function, create object for the class and call the spin function to stop the node exiting </p>		
+		<pre data-src="plugins/toolbar/prism-toolbar.js" data-prismjs-copy="Copy"><code class="language-python">def main(args=None):
+	rclpy.init(args=args)
+	robot = RobotController()    # create an object for RobotController class
+	rclpy.spin(robot)
+	robot.destroy_node()
+	rclpy.shutdown()
+
+if __name__ == "__main__":
+	main()
+		</code></pre><br><br>
+		
+<p class="cols-12" style="text-align:center;">Down below is the link to the entire package contaning all the python programs</p>
+<a class="btn btn-primary" href="https://github.com/hankramnithish/FinalProject" target="_blank" style="margin-left:auto;margin-right:auto;display:block;width:15%">Link</a>	
+	</div>
+	
 		</div>
 	</div>
 
