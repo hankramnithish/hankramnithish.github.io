@@ -47,7 +47,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="#">Collision Avoidance using LIDAR</a>
+						<a data-toggle="tab" id="CollisionTab" href="#Collision" role ="tab" aria-selected="false">Collision Avoidance</a>
 					</li>
 					<li>
 						<a data-toggle="tab" id="IntegrationTab" href="#Integrate" role ="tab" aria-selected="false">Integrating with Robot motion</a>
@@ -139,7 +139,11 @@
 			</div>
 			<div class="row tab-pane fade" id="Train" role="tabpanel" aria-labelledby="Train-tab">
 				<h1 class="mb-4 col-12 main-heading display-5">Training a YOLOv5 model</h1>
-				<p class="col-12">Download the required files for training yolov5 from the github repository. <a href="https://github.com/hankramnithish/yolov5" target="_blank">Link</a></p>	
+				<h5 class="col-12"><strong>Prerequisites</strong></h5>
+				<p class="col-12">Download the required files for training YOLOv5 from the github repository. <a href="https://github.com/hankramnithish/yolov5" target="_blank">Link</a></p>	
+				<p class="col-12">The libraries required for training YOLOv5 is given under the downloaded "yolov5" folder as "requirements.txt". To install all the required libraries, run the following command while inside the "yolov5" folder.</p>
+				<pre data-src="plugins/toolbar/prism-toolbar.js" data-prismjs-copy="Copy"><code class="language-terminal">pip3 install -r requirements.txt</code></pre><br><br>
+				<h5 class="col-12"><strong>Training the model</strong></h5>
 				<p class="col-12">To train the model the dataset must be pointed to yolov5. A yaml file is created under yolov5/data and with the code as follows (the yaml files under the data folder can also be edited to create a new one)</p>
 
 			</div>
@@ -148,9 +152,21 @@
 				<p class="col-12"></p>	
 			</div>
 
-
-
-
+			<div class="row tab-pane fade" id="Collision" role="tabpanel" aria-labelledby="Collision-tab">
+				<h1 class="mb-4 col-12 main-heading display-5">Collision Avoidance</h1>
+				<h5 class="col-12"><strong>Idea</strong></h5>
+				<ul class="col-12"> 
+					<li>The idea behind obstacles avoidance is to use the lidar data and stop the turtlebot when facing an obstacle.</li> 
+					<li>The turtlebot must move only after the obstacle is removed.</li> 
+					<li>The 360° LIDAR data is narrowed to 60° facing the front side of the turtlebot as shown in the image.</li><br>
+					<img src="images/Lidar_narrow.png" class="img-fluid offset-4 col-sm-6 offset-sm-2 mb-4" alt="Responsive image" style="margin-left:auto;margin-right:auto;display:block"><br><br>
+					<li>A maximum range value is set based on some experiments, the lidar data is filtered with the range values and a bool value is generated. </li>
+					<li>The boolean value is used to check if the presence of an obstacle </li>
+				</ul>
+				<h5 class="col-12"><strong>Visualize LIDAR data</strong></h5>
+				<p class="col-12">The LIDAR data is published under the "/scan" topic. To publish the "/scan" topic run the launch file as show below </p>
+				<pre data-src="plugins/toolbar/prism-toolbar.js" data-prismjs-copy="Copy"><code class="language-terminal">ros2 launch turtlebot4_bringup rplidar.launch.py</code></pre>
+			</div>
 
 
 			<div class="row tab-pane fade" id="Integrate" role="tabpanel" aria-labelledby="Integrate-tab">
@@ -158,6 +174,7 @@
 				<p class="col-12"> The YOLOv5 model is deployed succesfully with the turtlebot and LIDAR data is filtered to detect obstacles infront of the bot. Next step is to create a program to receive 
 					the topic "/pred" from the YOLOv5 node and "/laser_avoid" topic from the LIDAR node to control the motion of the Robot.	     
 				</p>
+				<h5 class="col-12"><strong>Idea</strong></h5>
 			<mark>Also add what we plan to do when signs are ketp, like if speed then do this </mark>
 				<h5 class="col-12"><strong>Program</strong></h5>
 				<p class="col">1. We start the python program by importing the necessary libraries and messages </p>
@@ -348,7 +365,7 @@ if __name__ == "__main__":
 <p class="cols-12" style="text-align:center;">Down below is the link to the entire package contaning all the python programs</p>
 <a class="btn btn-primary" href="https://github.com/hankramnithish/FinalProject" target="_blank" style="margin-left:auto;margin-right:auto;display:block;width:15%">Link</a>	
 	</div>
-	
+
 		</div>
 	</div>
 
