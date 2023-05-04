@@ -1,27 +1,25 @@
-.main-heading
-{
-text-align: center;
+.main-heading {
+    text-align: center;
 }
 
-body p
-{
-font-size:15px;
-color:black;
+body p {
+    font-size: 15px;
+    color: black;
 
 }
-body ul
-{
-font-size:15px;
-color:black;
+
+body ul {
+    font-size: 15px;
+    color: black;
 }
-mark
-{
+
+mark {
     background-color: aqua;
 }
-.main-div
-{
-    height:100vh;
-    overflow-y:scroll;
+
+.main-div {
+    height: 100vh;
+    overflow-y: scroll;
 }
 
 #sidebar ul li a {
@@ -34,5 +32,26 @@ mark
 
 
 .navigation {
-        display: block !important;
+    display: block !important;
+}
+
+.custom-menu {
+    z-index: 100;
+}
+
+.images {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    grid-template-rows: repeat(2, 50%);
+    grid-template-rows: auto;
+    grid-column-gap:30px;
+}
+.image1{
+    width: 100%;
+}
+
+.table_head
+{
+    background: #494ca2 !important;
 }
