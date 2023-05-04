@@ -746,13 +746,42 @@ from irobot_create_msgs.action import RotateAngle</code></pre><br>
 if __name__ == "__main__":
 	main()
 		</code></pre><br><br>
-		
+
+<h5 class="cols-12">Final ROS2 architecture</h5><br>
+<img src="images/rqt1 (1).png" class="img-fluid offset-4 col-sm-12 offset-sm-2 mb-4" alt="Responsive image" style="margin-left:auto;margin-right:auto;display:block"><br><br>
+<ul class="cols-12">
+	<li>Blue outline indicates the Nodes.</li>
+	<li>Orange outline indicates the Topics</li>
+	<li>Yellow line indicates the flow of topics</li>
+</ul>
+Note : The Node and Topics that are highlighted shows the flow of topic for only the main nodes. No Indication is provided for additional internal nodes (Marking all the internal nodes convolutes the image with colors and causes confusion). 		
+<br><br>
+<img src="images/rqt1 (2).png" class="img-fluid offset-4 col-sm-16 offset-sm-2 mb-4" alt="Responsive image" style="margin-left:auto;margin-right:auto;display:block"><br><br>
+<ul class="cols-12">
+	<li>Blue outline indicates the Nodes.</li>
+	<li>Orange outline indicates the Topics</li>
+	<li>Yellow line indicates the flow of topics</li>
+	<li>Pink indicates flow of action lib</li>
+</ul>
+<h5 class="col-12">Inference from rosgraph</h5>
+<ul class="col-12">
+	<li>The "rgb_streo_node" sends the "/color/preview/image" topic and the "yolov5_node" subscribes to this topic.</li>
+	<li>The "yolov5_node" publishes the results through "/image_prediction" topic and this node is subcribed by the controller node.</li>
+	<li>The "rplidar_composition" node publishes the "/scan" topic and this topic is published by "reading_laser" node.</li>
+	<li>The controller node subscribes to the laser avoid topic which is published by "reading_laser" node.</li>
+	<li>The controller node publishes the velocity through the topic "/cmd_vel" which is subscribed "motion_control" node. </li>
+	<li>The "rotate_angle" action lib is published to the controller node.</li>
+</ul>
+
 <p class="cols-12" style="text-align:center;">Down below is the link to the entire package contaning all the python programs</p>
 <a class="btn btn-primary" href="https://github.com/hankramnithish/FinalProject" target="_blank" style="margin-left:auto;margin-right:auto;display:block;width:15%">Link</a>	
-	</div>
+	
+</div>
 	<div class="row tab-pane fade" id="Conclude" role="tabpanel" aria-labelledby="Conclude-tab">
 		<h1 class="mb-4 col-12 main-heading display-5">Conclusion and Results</h1><br>
-		<h5 class="col-12">Final Working Video</h5><br>
+		<h5 class="col-12">Elevator Pitch Video</h5><br>
+		<iframe width="560" height="315" src="https://www.youtube.com/embed/72-tt3a-q7k" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="margin-left: auto;margin-right:auto;display:block;"></iframe><br><br>
+		<h5 class="col-12">Final Working Videos</h5><br>
 		<iframe width="560" height="315" src="https://www.youtube.com/embed/jO5C7iZs1EE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="margin-left: auto;margin-right:auto;display:block;"></iframe><br><br>
 		<iframe width="560" height="315" src="https://www.youtube.com/embed/fJ9wuFFzkOo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="margin-left: auto;margin-right:auto;display:block;"></iframe><br><br>
 		<iframe width="560" height="315" src="https://www.youtube.com/embed/gZt9Oihwrqg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="margin-left: auto;margin-right:auto;display:block;"></iframe><br><br>
@@ -763,7 +792,7 @@ if __name__ == "__main__":
 		<li>The model is deployed succesfully on the Turtlebot to subscribe to the ROS2 "/color/preview/image" topic from the oak-d camera and predict outputs. </li>
 		<li>The LIDAR data from the ROS2 "/scan" topic is visualized and filtered succesfully to output a Boolean value that indicates the presence of the obstacle.</li>
 		<li>The LIDAR node and YOLO node is succesfully integrated with controller node to perform the predifined actions for each of the signs.</li>
-		<li>Finally, a launch file reated by adding all the reqired nodes and the Turtlebot is deployed on a custom Arena with road signs placed in a set path. </li>
+		<li>Finally, a launch file created by adding all the reqired nodes and the Turtlebot is deployed on a custom Arena with road signs placed in a set path. </li>
 	</ul>
 	<h5 class="col-12">Tradeoffs and Limitations</h5>
 	<ul>
@@ -776,8 +805,15 @@ if __name__ == "__main__":
 		<li>The model also has fails to detect turns and Uturns in some rare circumstances. To fix this issue the model must be trained with optimal Hyperparamters.</li>
 		<li> While finding the optimal hyperparameters is a skill in itself that takes days or even weeks. We are limited by the lack of time to train the model.</li>
 	</ul>
-		
+	
+	<h5 class="col-12">Links</h5>
+	<a class="btn btn-primary" style="margin-left:auto;margin-right:auto;display:block;width:15%" href="https://drive.google.com/drive/folders/1Piht3aQ1qmxeEg0g5oFOVuttRezPLc2D?usp=share_link" target="_blank">Link to Dataset</a><br><br>
+	<a class="btn btn-primary" style="margin-left:auto;margin-right:auto;display:block;width:15%" href="https://github.com/hankramnithish/FinalProject" target="_blank">Link to Github Repository</a><br><br>
+	<a class="btn btn-primary" style="margin-left:auto;margin-right:auto;display:block;width:15%" href="https://github.com/hankramnithish/yolov5" target="_blank">Link to YOLOv5 forked repo</a><br><br>
+	
 	</div>
+
+
 		</div>
 	</div>
 
