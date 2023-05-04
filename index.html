@@ -53,7 +53,7 @@
 						<a data-toggle="tab" id="IntegrationTab" href="#Integrate" role ="tab" aria-selected="false">Integrating with Robot motion</a>
 					</li>
 					<li>
-						<a href="#">Conclusion and Results</a>
+						<a data-toggle="tab" id="ConclusionTab" href="#Conclude" role ="tab" aria-selected="false">Conclusion and Results</a>
 					</li>
 				</ul>
 
@@ -127,7 +127,7 @@
 					. Yolov5s (YOLO version 5) is used in this project . There are also different architectures of YOLOv5 as
 					shown in the image
 				</p>
-				<img src="images/YOLO_versions.jpg" class="img-fluid offset-4 col-sm-8 offset-sm-2 mb-4"
+				<img src="images/yolo_versions.jpg" class="img-fluid offset-4 col-sm-8 offset-sm-2 mb-4"
 					alt="Responsive image"><br><br>
 				<h5 class="col-12"><strong>Creating a Dataset</strong></h5>
 				<p class="col-12">The images are captured from the turtlebot4 oak-d camera. A subscriber node is used to subscribe to the "/color/preview/image" topic, convert the data from ros image format to opencv format and use the cv2.imwrite() function to save the image. <a href="">Here</a> is the link for the image subscribe and save node. </p>
@@ -750,7 +750,34 @@ if __name__ == "__main__":
 <p class="cols-12" style="text-align:center;">Down below is the link to the entire package contaning all the python programs</p>
 <a class="btn btn-primary" href="https://github.com/hankramnithish/FinalProject" target="_blank" style="margin-left:auto;margin-right:auto;display:block;width:15%">Link</a>	
 	</div>
-
+	<div class="row tab-pane fade" id="Conclude" role="tabpanel" aria-labelledby="Conclude-tab">
+		<h1 class="mb-4 col-12 main-heading display-5">Conclusion and Results</h1><br>
+		<h5 class="col-12">Final Working Video</h5><br>
+		<iframe width="560" height="315" src="https://www.youtube.com/embed/jO5C7iZs1EE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="margin-left: auto;margin-right:auto;display:block;"></iframe><br><br>
+		<iframe width="560" height="315" src="https://www.youtube.com/embed/fJ9wuFFzkOo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="margin-left: auto;margin-right:auto;display:block;"></iframe><br><br>
+		<iframe width="560" height="315" src="https://www.youtube.com/embed/gZt9Oihwrqg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="margin-left: auto;margin-right:auto;display:block;"></iframe><br><br>
+		<iframe width="560" height="315" src="https://www.youtube.com/embed/KzTxzmAbXNc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="margin-left: auto;margin-right:auto;display:block;"></iframe><br><br>
+	<h5 class="col-12">Conclusion</h5>
+	<ul>
+		<li>A classification model is trained using YOLOv5 to classify road signs.</li>
+		<li>The model is deployed succesfully on the Turtlebot to subscribe to the ROS2 "/color/preview/image" topic from the oak-d camera and predict outputs. </li>
+		<li>The LIDAR data from the ROS2 "/scan" topic is visualized and filtered succesfully to output a Boolean value that indicates the presence of the obstacle.</li>
+		<li>The LIDAR node and YOLO node is succesfully integrated with controller node to perform the predifined actions for each of the signs.</li>
+		<li>Finally, a launch file reated by adding all the reqired nodes and the Turtlebot is deployed on a custom Arena with road signs placed in a set path. </li>
+	</ul>
+	<h5 class="col-12">Tradeoffs and Limitations</h5>
+	<ul>
+		<li>The <mark>first limitation</mark> is the Hardware itself, the oak-d camera being high resolution is sometimes incapable of sending Live and Real time video feed wirelessly without any delay.</li>
+		<li>The height and the width of the image must be set in such a way that the lag is minimal and at the same time the Field of View (width) is wide enough. (Tradeoffs)</li>
+		<li>Furthermore, large number of devices using 2.4 (bluetooth and wifi) or 5Ghz (wifi) networks to trasmit data, significantly affects the image feed from the camera. So it is always recommended to switch off any source of wireless signals being transmitted at those frequencies.</li>
+		<li>The <mark>second limitation</mark> is related to YOLOv5. YOLOv5s being a complex architecture , has some delay in predicting signs in live feed. The delay is typically small (in the order milli seconds) around 500ms sometimes even more.</li>
+		<li>This delay adds up with camera delay to make a noticeably slow reaction in the motion of the robot. (Not too bad) </li>
+		<li>The <mark>thrid limitation</mark> is in classifying the signs. Although YOLOv5 is trained to perform well on all the signs, the model fails when the signs are too close the camera. This is the limitation of YOLOv5 as it tries to detect signs by drawing smaller bounding boxes</li>
+		<li>The model also has fails to detect turns and Uturns in some rare circumstances. To fix this issue the model must be trained with optimal Hyperparamters.</li>
+		<li> While finding the optimal hyperparameters is a skill in itself that takes days or even weeks. We are limited by the lack of time to train the model.</li>
+	</ul>
+		
+	</div>
 		</div>
 	</div>
 
