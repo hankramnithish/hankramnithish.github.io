@@ -71,14 +71,14 @@
 					<mark>YOLO algorithm </mark>is used to detect the road signals and classify the detected road sign.
 					Based on the classification of the road signals, perform a predefined set of actions and make the robot follow a desired path and avoid dynamic obstacle in its path using the LIDAR data.
 				</p><br><br>
-				<h5 class="col-12"><strong>Changes from previous proposal</strong></h5>
+				<!-- <h5 class="col-12"><strong>Changes from previous proposal</strong></h5>
 				<ul class="col-12">
 					<li>Previously the idea was to use the YOLO algorithm only for object detection and get the results from YOLO and feed them into the custom CNN model for classification</li>
 					<li>The assumption was YOLO is good at classifying objects with easily noticeable differences but not the road signals which look almost similar with subtle changes</li>
 					<li>But after an attempt for object classification with YOLO, the results were found to be good. But the model was not able to correctly predict the road signals that were far from the camera.</li>
 					<li>Few more images with road signs far from the camera were collected, trained and the performance of the model is excellent</li>
 					<li>So the custom CNN model need not be trained and just YOLO can be used for both the road sign detection and classification</li>
-				</ul><br>
+				</ul><br>--><br>
 				<h5 class="col-12"><strong>Scope</strong></h5>
 				<ul class="col-12">
 					<li>This project lays a foundation to basic road sign detection and navigation.</li>
@@ -805,12 +805,48 @@ Note : The Node and Topics that are highlighted shows the flow of topic for only
 		<li>The model also has fails to detect turns and Uturns in some rare circumstances. To fix this issue the model must be trained with optimal Hyperparamters.</li>
 		<li> While finding the optimal hyperparameters is a skill in itself that takes days or even weeks. We are limited by the lack of time to train the model.</li>
 	</ul>
-	
+	<br>
 	<h5 class="col-12">Links</h5>
-	<a class="btn btn-primary" style="margin-left:auto;margin-right:auto;display:block;width:15%" href="https://drive.google.com/drive/folders/1Piht3aQ1qmxeEg0g5oFOVuttRezPLc2D?usp=share_link" target="_blank">Link to Dataset</a><br><br>
-	<a class="btn btn-primary" style="margin-left:auto;margin-right:auto;display:block;width:15%" href="https://github.com/hankramnithish/FinalProject" target="_blank">Link to Github Repository</a><br><br>
-	<a class="btn btn-primary" style="margin-left:auto;margin-right:auto;display:block;width:15%" href="https://github.com/hankramnithish/yolov5" target="_blank">Link to YOLOv5 forked repo</a><br><br>
-	
+	<div class="row">
+	<a class="btn btn-primary col m-2"  href="https://drive.google.com/drive/folders/1Piht3aQ1qmxeEg0g5oFOVuttRezPLc2D?usp=share_link" target="_blank">Link to Dataset</a><br><br>
+	<a class="btn btn-primary col m-2"  href="https://github.com/hankramnithish/FinalProject" target="_blank">Link to Github Repository</a><br><br>
+	<a class="btn btn-primary col m-2"  href="https://github.com/hankramnithish/yolov5" target="_blank">Link to YOLOv5 forked repo</a><br><br>
+	</div>
+	<br><br>
+	<h5 class="col-12">Authors and Collaborators</h5><br>
+	<div class="row">
+	<div class="card col" style="width: 18rem;margin:2%;margin-left:2%;">
+		<img src="images/4552 copy.jpg" class="img-fluid offset-4 col-sm-16 offset-sm-2 mb-2 mt-3 author_img card-img-top" alt="Responsive image">
+		<div class="card-body contact_info">
+		  <h3 class="card-title" style="text-align:center;">Ramprakash Sridharan</h3>
+		  <p class="card-text">M.S. Robotics and Autonomous Systems : Systems Engineering</p>
+		  <p class="card-text">Arizona State University , Tempe , United States</p>		
+		  <p class="card-text"><img src="images/gmail.png" style="width:9%;height:auto;margin:5px;margin-right:10px;">sridharanram2001@gmail.com</p>
+		  <a href="https://www.linkedin.com/in/ramprakash-sridharan/" target="_blank"><p class="card-text"><img src="images/linkedin.png" style="width:9%;height:auto;margin:5px;margin-right:10px;">Ramprakash Sridharan</p></a>
+		</div>
+	</div>
+		<div class="card col" style="width: 18rem;margin:2%;margin-left:2%;">
+			<img src="images/Shunyen.JPG" class="img-fluid offset-4 col-sm-16 offset-sm-2 mb-2 mt-3 author_img card-img-top" alt="Responsive image">
+			<div class="card-body contact_info">
+			  <h3 class="card-title" style="text-align:center;">Shun Yen Wang</h3>
+			  <p class="card-text">M.S. Robotics and Autonomous Systems : Systems Engineering</p>
+			  <p class="card-text">Arizona State University , Tempe , United States</p>			
+			  <p class="card-text"><img src="images/gmail.png" style="width:9%;height:auto;margin:5px;margin-right:10px;">syw2973@gmail.com</p>
+		  <a href="https://www.linkedin.com/in/shun-yen-wang/" target="_blank"><p class="card-text"><img src="images/linkedin.png" style="width:9%;height:auto;margin:5px;margin-right:10px;">Shun Yen Wang</p></a>
+			</div>
+		</div>
+		<div class="card col" style="width:18rem;margin:2%;margin-left:2%;">
+			<img src="images/Nithish Kumar Saravanan.jpg" class="img-fluid offset-4 col-sm-16 offset-sm-2 mb-2 mt-3 author_img card-img-top" alt="Responsive image">
+			<div class="card-body contact_info">
+			  <h3 class="card-title" style="text-align:center;">Nithish Kumar Saravanan</h3>
+			  <p class="card-text">M.S. Robotics and Autonomous Systems : Systems Engineering</p>
+			  <p class="card-text">Arizona State University , Tempe , United States</p>			
+			  <p class="card-text"><img src="images/gmail.png" style="width:9%;height:auto;margin:5px;margin-right:10px;">nithishkumarsofficial@gmail.com</p>
+			  <a href="https://www.linkedin.com/in/s-nithish-kumar/" target="_blank"><p class="card-text"><img src="images/linkedin.png" style="width:9%;height:auto;margin:5px;margin-right:10px;">Nithish Kumar Saravanan</p></a>
+			</div>
+		</div>
+	</div>		
+
 	</div>
 
 
